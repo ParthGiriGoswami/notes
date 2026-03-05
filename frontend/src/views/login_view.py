@@ -1,0 +1,32 @@
+import asyncio
+import flet as ft
+def LoginView(page):
+    async def open_notes(_):
+        await page.push_route("/notes")
+    async def open_create(_):
+        await page.push_route("/create")
+    return ft.View(
+        route="/",  
+        horizontal_alignment="center",
+        vertical_alignment="center",
+        controls=[
+            ft.Card(
+                content=ft.Container(
+                    content=ft.Column([
+                        ft.Text("Sign In", size=25, weight="bold"),
+                        ft.TextField(label="Username"),
+                        ft.TextField(label="Password", password=True),
+                        ft.Button(
+                            "Login",
+                            on_click=lambda e: asyncio.create_task(open_notes(e)),
+                        ),
+                        ft.Button(
+                            "Create Account",
+                            on_click=lambda e: asyncio.create_task(open_create(e)),
+                        ),
+                    ], horizontal_alignment="center"),
+                    padding=40,
+                )
+            )
+        ],
+    )
